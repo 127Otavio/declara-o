@@ -19,6 +19,7 @@ export default function CreateDeclarationPage() {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
   const [template, setTemplate] = useState<DeclarationTemplate>("romantic");
   const [publicUrl, setPublicUrl] = useState("");
   const [copyStatus, setCopyStatus] = useState("");
@@ -34,7 +35,7 @@ export default function CreateDeclarationPage() {
       const response = await fetch("/api/declarations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, title, message, template }),
+        body: JSON.stringify({ name, title, message, template, photoUrl }),
       });
       const data = (await response.json()) as { slug?: string; error?: string };
 
@@ -68,6 +69,7 @@ export default function CreateDeclarationPage() {
     setName("");
     setTitle("");
     setMessage("");
+    setPhotoUrl("");
     setTemplate("romantic");
     setPublicUrl("");
     setCopyStatus("");
@@ -130,6 +132,22 @@ export default function CreateDeclarationPage() {
                   className="min-h-36 w-full resize-y rounded-xl border border-[#e8cfd2] bg-white px-4 py-3 outline-none focus:border-[#e85d75]"
                   placeholder="Escreva algo que venha do coração..."
                 />
+              </label>
+
+              <label className="block">
+                <span className="mb-2 block text-sm font-semibold">
+                  Foto especial <span className="font-normal text-gray-500">(opcional)</span>
+                </span>
+                <input
+                  type="url"
+                  value={photoUrl}
+                  onChange={(event) => setPhotoUrl(event.target.value)}
+                  className="w-full rounded-xl border border-[#e8cfd2] bg-white px-4 py-3 outline-none focus:border-[#e85d75]"
+                  placeholder="https://exemplo.com/nossa-foto.jpg"
+                />
+                <span className="mt-2 block text-xs text-gray-500">
+                  Use um link público de uma imagem.
+                </span>
               </label>
 
               <fieldset>
@@ -199,6 +217,14 @@ export default function CreateDeclarationPage() {
               <p className="mt-5 whitespace-pre-wrap leading-7 text-gray-600">
                 {previewMessage}
               </p>
+              {photoUrl && (
+                <div
+                  role="img"
+                  aria-label={`Foto especial para ${previewName}`}
+                  className="mx-auto mt-8 aspect-[4/3] max-w-sm rounded-2xl bg-cover bg-center"
+                  style={{ backgroundImage: `url(${photoUrl})` }}
+                />
+              )}
               <div className="mt-8 h-2 rounded-full bg-[#f4b6c2]" />
             </div>
           </section>

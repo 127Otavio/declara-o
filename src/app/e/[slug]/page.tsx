@@ -101,6 +101,14 @@ export default function PublicDeclarationPage() {
             <p className="mt-8 whitespace-pre-wrap text-lg leading-8 text-gray-600">
               {declaration.message}
             </p>
+            {declaration.photoUrl && (
+              <div
+                role="img"
+                aria-label={`Foto especial para ${declaration.name}`}
+                className="mx-auto mt-10 aspect-[4/3] w-full max-w-lg rounded-2xl bg-cover bg-center shadow-sm"
+                style={{ backgroundImage: `url(${declaration.photoUrl})` }}
+              />
+            )}
             <div className="mx-auto mt-10 h-2 max-w-xs rounded-full bg-[#f4b6c2]" />
           </div>
         </section>

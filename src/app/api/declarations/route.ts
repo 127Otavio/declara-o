@@ -8,6 +8,7 @@ type DeclarationInput = {
   title?: unknown;
   message?: unknown;
   template?: unknown;
+  photoUrl?: unknown;
 };
 
 export async function POST(request: Request) {
@@ -19,7 +20,7 @@ export async function POST(request: Request) {
     return Response.json({ error: "JSON inválido." }, { status: 400 });
   }
 
-  const { name, title, message, template } = input;
+  const { name, title, message, template, photoUrl } = input;
   if (
     typeof name !== "string" ||
     typeof title !== "string" ||
@@ -28,7 +29,10 @@ export async function POST(request: Request) {
     !name.trim() ||
     !title.trim() ||
     !message.trim() ||
-    !templates.includes(template as DeclarationTemplate)
+    !templates.includes(template as DeclarationTemplate) ||
+    (photoUrl !== undefined &&
+      photoUrl !== "" &&
+      (typeof photoUrl !== "string" || !/^https?:\/\//i.test(photoUrl)))
   ) {
     return Response.json(
       { error: "Preencha todos os campos com valores válidos." },
@@ -43,6 +47,7 @@ export async function POST(request: Request) {
     title: title.trim(),
     message: message.trim(),
     template,
+    photo_url: typeof photoUrl === "string" && photoUrl ? photoUrl : null,
   });
 
   if (error) {

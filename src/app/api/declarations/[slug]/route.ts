@@ -7,7 +7,7 @@ export async function GET(
   const { slug } = await params;
   const { data, error } = await supabase
     .from("declarations")
-    .select("name, title, message, template")
+    .select("name, title, message, template, photo_url")
     .eq("slug", slug)
     .maybeSingle();
 
@@ -26,5 +26,8 @@ export async function GET(
     );
   }
 
-  return Response.json(data);
+  return Response.json({
+    ...data,
+    photoUrl: data.photo_url,
+  });
 }

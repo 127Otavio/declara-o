@@ -24,7 +24,7 @@ export default function Home() {
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
         <h1 className="text-2xl font-bold text-[#8f2942]">declara-o</h1>
 
-        <nav className="hidden gap-6 text-sm md:flex">
+        <nav className="ml-auto hidden gap-6 text-sm md:flex">
           <a href="#como-funciona" className="hover:text-[#e85d75]">
             Como funciona
           </a>
@@ -33,10 +33,6 @@ export default function Home() {
             Modelos
           </a>
         </nav>
-
-        <button className="rounded-full bg-[#8f2942] px-5 py-2 text-sm font-medium text-white transition hover:bg-[#6f1f34]">
-          Entrar
-        </button>
       </header>
 
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 md:grid-cols-2">
